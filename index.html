@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Map</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Fredoka', sans-serif;
+        }
+        
+        html, body {
+            height: 100%;
+            overflow: auto;
+        }
+        
+        body {
+            background-color: #F4EDD9;
+            position: relative;
+        }
+        
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('background.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: -1;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1080px;
+            min-height: 100vh;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 100px;
+        }
+        
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .books-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .book {
+            width: 180px;
+            margin: 0 -15px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .book:hover {
+            transform: translateY(-10px) scale(1.05);
+            z-index: 10;
+        }
+        
+        .characters-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .character-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 18%;
+            position: relative;
+        }
+        
+        .character {
+            width: 100%;
+            max-height: 220px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .character:hover {
+            transform: scale(1.1);
+        }
+        
+        .character-info {
+            text-align: center;
+            margin-top: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 8px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+        }
+        
+        .character-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .character-role {
+            font-size: 0.8rem;
+            color: #555;
+            font-style: italic;
+        }
+        
+        .character-description {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            width: 200px;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            transition: transform 0.3s ease;
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        
+        .character-wrapper:hover .character-description {
+            transform: translateX(-50%) scale(1);
+            opacity: 1;
+        }
+        
+        .amazon-hotspot {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            width: 200px;
+            height: 80px;
+            cursor: pointer;
+            z-index: 100;
+            background-color: transparent;
+        }
+        
+        .video-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+        
+        .video-container {
+            width: 80%;
+            max-width: 800px;
+            aspect-ratio: 16/9;
+            margin-bottom: 10px;
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .video-buttons {
+            display: flex;
+            justify-content: center;
+            width: 80%;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .video-button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .video-button:hover {
+            background-color: #45a049;
+        }
+        
+        .video-button.active {
+            background-color: #357a38;
+        }
+        
+        .video-button:first-child {
+            border-right: 1px solid white;
+        }
+        
+        @media (max-width: 768px) {
+            .book {
+                width: 120px;
+            }
+            
+            .characters-container {
+                flex-wrap: wrap;
+            }
+            
+            .character-wrapper {
+                width: 30%;
+                margin-bottom: 20px;
+            }
+            
+            .character-description {
+                width: 150px;
+                font-size: 0.8rem;
+            }
+            
+            .amazon-hotspot {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .video-container {
+                width: 95%;
+            }
+            
+            .video-buttons {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    
+    <div class="container">
+        <div class="content">
+            <div class="books-container">
+                <img src="book1.png" alt="Book 1: The Seed Saver's Quest" class="book">
+                <img src="book2.png" alt="Book 2: The Echood Builds an Ecomachine" class="book">
+                <img src="book3.png" alt="Book 3: iSpy a Chickadee - Luna's Birdwatching Mission" class="book">
+            </div>
+            
+            <div class="characters-container">
+                <div class="character-wrapper">
+                    <img src="Kai.png" alt="Kai Sunspark" class="character">
+                    <div class="character-info">
+                        <div class="character-name">Kai Sunspark</div>
+                        <div class="character-role">Solar Energy Specialist</div>
+                    </div>
+                    <div class="character-description">
+                        Age 7 - Solar Energy Specialist & Innovation Catalyst. Boundlessly energetic and optimistic - Innovative problem-solver - Natural motivator for the team - Playful yet focused on environmental goals - Believes technology can heal the environment.
+                    </div>
+                </div>
+                
+                <div class="character-wrapper">
+                    <img src="luna.png" alt="Luna Starbug" class="character">
+                    <div class="character-info">
+                        <div class="character-name">Luna Starbug</div>
+                        <div class="character-role">Insect Researcher</div>
+                    </div>
+                    <div class="character-description">
+                        Age 7 - Insect Researcher & Detail Specialist. Intensely curious and detail-oriented - Playful yet serious about research - Natural teacher and communicator.
+                    </div>
+                </div>
+                
+                <div class="character-wrapper">
+                    <img src="mandy.png" alt="Mandy Rootwhisper" class="character">
+                    <div class="character-info">
+                        <div class="character-name">Mandy Rootwhisper</div>
+                        <div class="character-role">Nature Guardian</div>
+                    </div>
+                    <div class="character-description">
+                        Age 9 - Nature Guardian & Emotional Heart. Wise beyond her years with childlike wonder - Gentle emotional guide for the team - Natural plant communicator - Empathetic and nurturing - Bridge between practical and spiritual approaches.
+                    </div>
+                </div>
+                
+                <div class="character-wrapper">
+                    <img src="river.png" alt="River Wavewalker" class="character">
+                    <div class="character-info">
+                        <div class="character-name">River Wavewalker</div>
+                        <div class="character-role">Water Keeper</div>
+                    </div>
+                    <div class="character-description">
+                        Age 8 - Water Keeper & Artist. Calm and flowing like water itself - Artistic and contemplative approach - Natural mediator and bridge-builder - Creative problem-solver.
+                    </div>
+                </div>
+                
+                <div class="character-wrapper">
+                    <img src="Zara.png" alt="Zara Seed Saver" class="character">
+                    <div class="character-info">
+                        <div class="character-name">Zara Seed Saver</div>
+                        <div class="character-role">Agricultural Conservationist</div>
+                    </div>
+                    <div class="character-description">
+                        Age 11 - Agricultural Conservationist & Team Leader. Mature leader with natural authority - Patient mentor to younger team members - Determined and hopeful outlook - Deep connection to agricultural wisdom - Protective of team while encouraging growth.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- YouTube Video Section -->
+            <div class="video-section">
+                <div class="video-container">
+                    <iframe id="video-player" src="https://www.youtube.com/embed/YW2carVRBZM" title="Echood Coloring Adventures" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="video-buttons">
+                    <button class="video-button active" onclick="changeVideo('YW2carVRBZM', this)">Video 1</button>
+                    <button class="video-button" onclick="changeVideo('T0tBCMYevZI', this)">Video 2</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Amazon hotspot -->
+    <a href="https://www.amazon.com/dp/B0FHBNPX97" class="amazon-hotspot" target="_blank" title="Find on Amazon"></a>
+    
+    <script>
+        // Add hover effects for character descriptions
+        const characters = document.querySelectorAll('.character-wrapper');
+        characters.forEach(character => {
+            character.addEventListener('mouseenter', () => {
+                character.querySelector('.character-description').style.opacity = '1';
+                character.querySelector('.character-description').style.transform = 'translateX(-50%) scale(1)';
+            });
+            
+            character.addEventListener('mouseleave', () => {
+                character.querySelector('.character-description').style.opacity = '0';
+                character.querySelector('.character-description').style.transform = 'translateX(-50%) scale(0)';
+            });
+        });
+        
+        // Function to change videos
+        function changeVideo(videoId, button) {
+            document.getElementById('video-player').src = 'https://www.youtube.com/embed/' + videoId;
+            
+            // Update active button
+            document.querySelectorAll('.video-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+        }
+    </script>
+</body>
+</html>
