@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://bravenewearth.github.io/echood.coloring.adventures/</loc>
+    <lastmod>2025-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://bravenewearth.github.io/echood.coloring.adventures/book1.png</image:loc>
+      <image:title>Echood Coloring Adventures: The Seed Saver's Quest - Book 1</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://bravenewearth.github.io/echood.coloring.adventures/book2.png</image:loc>
+      <image:title>Echood Coloring Adventures: The Echood Builds an Ecomachine - Book 2</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://bravenewearth.github.io/echood.coloring.adventures/book3.png</image:loc>
+      <image:title>Echood Coloring Adventures: iSpy a Chickadee - Luna's Birdwatching Mission - Book 3</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://bravenewearth.github.io/echood.coloring.adventures/Kai.png</image:loc>
+      <image:title>Kai Sunspark - Solar Energy Specialist</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://bravenewearth.github.io/echood.coloring.adventures/luna.png</image:loc>
+      <image:title>Luna Starbug - Insect Researcher</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://bravenewearth.github.io/echood.coloring.adventures/mandy.png</image:loc>
+      <image:title>Mandy Rootwhisper - Nature Guardian</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://bravenewearth.github.io/echood.coloring.adventures/river.png</image:loc>
+      <image:title>River Wavewalker - Water Keeper</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://bravenewearth.github.io/echood.coloring.adventures/Zara.png</image:loc>
+      <image:title>Zara Seed Saver - Agricultural Conservationist</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://bravenewearth.github.io/echood.coloring.adventures/background.png</image:loc>
+      <image:title>Echood Coloring Adventures Background</image:title>
+    </image:image>
+  </url>
+</urlset>
